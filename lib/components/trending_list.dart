@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie_app/app/app_routes.dart';
+import 'package:flutter_movie_app/pages/description_page.dart';
 
 class TrendingMovies extends StatelessWidget {
   final List trending;
@@ -32,7 +34,20 @@ class TrendingMovies extends StatelessWidget {
                 itemBuilder: (context, index) { 
                   return InkWell(
                     onTap: () {
-                      
+                    Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => DescriptionPage(
+                                      name: trending[index]['title'],
+                                      bannerUrl:
+                                          'https://image.tmdb.org/t/p/w500' +
+                                              trending[index]['backdrop_path'],
+                                      description: trending[index]['overview'],
+                                      vote: trending[index]['vote_average']
+                                          .toString(),
+                                      launchOn: trending[index]
+                                          ['release_date'],
+                                    )));
                     },
                     child: Column(
                       children: [
