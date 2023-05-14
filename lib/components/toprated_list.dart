@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/app/app_routes.dart';
 import 'package:flutter_movie_app/pages/description_page.dart';
 
 class TopRatedList extends StatelessWidget {

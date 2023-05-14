@@ -62,6 +62,30 @@ class _HomePageState extends State<HomePage> {
           TrendingMovies(trending: trendingMovies)
         ],
       ),
+      drawer: Drawer(
+        child: ListView(
+          children: [
+               const Divider(),
+              ListTile(
+                leading: const Icon(Icons.tv),
+                title: const Text("Séries"),
+                subtitle: const Text("Veja tudo sobre séries!"),
+                trailing: const Icon(Icons.arrow_forward),
+                 onTap: () {
+                   
+                    },
+               ),
+               ListTile( 
+                 leading: const Icon(Icons.movie),
+                 title: const Text("Filmes"),
+                  subtitle: const Text("Veja tudo sobre filmes!"),
+                 trailing: const Icon(Icons.arrow_forward),
+                onTap: () {
+                }
+               )
+          ],
+        ),
+      ),
     );
   }
 }
