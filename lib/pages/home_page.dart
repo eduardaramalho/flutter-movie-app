@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie_app/components/trending_list.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class HomePage extends StatefulWidget {
@@ -9,10 +10,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List trendingMovies = [];
+
   final String apiKey = 'a0fd8ad86377b813f72eb4bb0bef6b07';
   final String readAccesToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJhMGZkOGFkODYzNzdiODEzZjcyZWI0YmIwYmVmNmIwNyIsInN1YiI6IjY0NjAyZWM1YTY3MjU0MDEyMjExYzFlMCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.htIlamwP_5hYsCdoN5K4Ym9xSeukBMPJCOb6n4c4VhY';
 
+  List trendingMovies = [];
+  List topRatedMovies = [];
+  List upComingMovies = [];
+  
  @override
   void initState(){
     super.initState();
@@ -28,8 +33,15 @@ class _HomePageState extends State<HomePage> {
       )
     );
 
-    Map trendingResult = await tmdbWithCostumLogs.v3.trending.getTrending();
-    print(trendingResult);
+    Map trendingresult = await tmdbWithCostumLogs.v3.trending.getTrending();
+    // Map topRatedMovies = await tmdbWithCostumLogs.v3.movies.getTopRated();
+    // Map upComingMovies = await tmdbWithCostumLogs.v3.movies.getUpcoming();
+
+    setState(() {
+      trendingMovies = trendingresult['results'];
+      // topRatedMovies = topRatedMovies['results'];
+      // upComingMovies = upComingMovies['results'];
+    });
 
   }
 
@@ -41,8 +53,11 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Movie App'),
         backgroundColor: Colors.pink.shade100,
       ),
-      body: const Text('data')
-      ,
+      body: ListView(
+        children: [
+          TrendingMovies(trending: trendingMovies)
+        ],
+      ),
     );
   }
 }
