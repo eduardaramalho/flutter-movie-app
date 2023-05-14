@@ -44,6 +44,7 @@ class TopRatedList extends StatelessWidget {
                                           .toString(),
                                       launchOn: topRated[index]
                                           ['release_date'],
+                                      year: topRated[index]['release_date'],
                                     )));
                     },
                     child: Column(
@@ -59,7 +60,9 @@ class TopRatedList extends StatelessWidget {
                           height: 200,
                         ),
                       const SizedBox(height: 5),
-                      Text(topRated[index]['title'] ?? 'Loading')
+                      Text(
+                        topRated[index]['title'] ?? 'Loading'
+                        )
                       ],
                     ),
                   );

@@ -41,6 +41,7 @@ class TvShowList extends StatelessWidget {
                                     description: tv[index]['overview'],
                                     vote: tv[index]['vote_average'].toString(),
                                     launchOn: tv[index]['release_date'],
+                                    year: tv[index]['year'],
                                   )));
                     },
                     child: Column(

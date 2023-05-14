@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class DescriptionPage extends StatelessWidget {
-  final String name, description, bannerUrl, vote, launchOn;
+  final String name, description, bannerUrl, vote, launchOn, year;
 
   const DescriptionPage(
       {super.key,
@@ -9,7 +9,8 @@ class DescriptionPage extends StatelessWidget {
       required this.description,
       required this.bannerUrl,
       required this.vote,
-      required this.launchOn
+      required this.launchOn,
+      required this.year
       });
 
   @override
@@ -48,24 +49,34 @@ class DescriptionPage extends StatelessWidget {
            Row(
             crossAxisAlignment: CrossAxisAlignment.start,
              children: [
+              const SizedBox(width: 10),
                Container(
                   width: 50.0,
                   height: 50.0,
-                  decoration: const BoxDecoration(
-                    color: Color(0xffFF1F8A),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff15161D),
                     shape: BoxShape.circle,
+                    border: Border.all(
+                      color: const Color(0xffFF1F8A)
+                    )
                   ),
                   child: Center(child: Text('$vote%')),
+              ),
+          Flexible(
+            child: Container(
+                padding: const EdgeInsets.all(10),
+                child: Text(
+                  '$name | $year ',
+                  style: const TextStyle(
+                    fontSize: 24,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.bold
+                  ),
+                  )
+                ),
           ),
              ],
            ),
-          Container(
-              padding: const EdgeInsets.all(10),
-              child: Text('$name | $launchOn ', style: const TextStyle(fontSize: 24, fontFamily: 'Inter', fontWeight: FontWeight.bold))),
-          Container(
-              padding: const EdgeInsets.only(left: 10),
-              child:
-                 Text(launchOn, style: const TextStyle(fontSize: 24))),
               const SizedBox(height: 5),
               const Divider(),
               Flexible(

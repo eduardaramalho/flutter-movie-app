@@ -44,6 +44,7 @@ class TrendingMovies extends StatelessWidget {
                                           .toString(),
                                       launchOn: trending[index]
                                           ['release_date'],
+                                     year: trending[index]['year'],
                                     )));
                     },
                     child: Column(
