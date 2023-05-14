@@ -15,7 +15,16 @@ class DescriptionPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: Colors.black,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: const BackButton(),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.favorite_outline_rounded))
+        ],
+      ),
+          backgroundColor: const Color(0xff303243),
           body: ListView(
             children: [
             SizedBox(
@@ -29,21 +38,36 @@ class DescriptionPage extends StatelessWidget {
                           child: Image.network(bannerUrl, fit: BoxFit.cover,),
                         ),
                       ),
-                  Positioned(
-                     bottom: 10,
-                     child: Text('Nota : $vote'),
-                    ),  
+                  // Positioned(
+                  //    bottom: 10,
+                  //    child: Text('Nota : $vote'),
+                  //   ),  
                   ]),
             ),
            const SizedBox(height: 15),
+           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+             children: [
+               Container(
+                  width: 50.0,
+                  height: 50.0,
+                  decoration: const BoxDecoration(
+                    color: Color(0xffFF1F8A),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Center(child: Text('$vote%')),
+          ),
+             ],
+           ),
           Container(
               padding: const EdgeInsets.all(10),
-              child: Text(name, style: const TextStyle(fontSize: 24))),
+              child: Text('$name | $launchOn ', style: const TextStyle(fontSize: 24, fontFamily: 'Inter', fontWeight: FontWeight.bold))),
           Container(
               padding: const EdgeInsets.only(left: 10),
               child:
-                 Text('Data de estreia: $launchOn', style: const TextStyle(fontSize: 24))),
+                 Text(launchOn, style: const TextStyle(fontSize: 24))),
               const SizedBox(height: 5),
+              const Divider(),
               Flexible(
                 child: Container(
                     padding: const EdgeInsets.all(10),

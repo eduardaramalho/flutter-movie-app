@@ -52,15 +52,28 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Movie App'),
-        backgroundColor: Colors.pink.shade100,
+        title: const Text('Movie App', style: TextStyle(fontFamily: 'Inter'),),
+        backgroundColor: const Color(0xff303243),
       ),
-      body: ListView(
-        children: [
-          TvShowList(tv: popularTvShows),
-          TopRatedList(topRated: topRatedMovies),
-          TrendingMovies(trending: trendingMovies)
-        ],
+      body: Container(
+        height: MediaQuery.of(context).size.height,
+        width: MediaQuery.of(context).size.width,
+        alignment: Alignment.center,
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Color(0xff303243),
+              Color(0xff36076B),
+              Color(0xff8000FF),
+            ])
+        ),
+        child: ListView(
+          children: [
+            TvShowList(tv: popularTvShows),
+            TopRatedList(topRated: topRatedMovies),
+            TrendingMovies(trending: trendingMovies)
+          ],
+        ),
       ),
       drawer: Drawer(
         child: ListView(
@@ -69,7 +82,7 @@ class _HomePageState extends State<HomePage> {
               ListTile(
                 leading: const Icon(Icons.tv),
                 title: const Text("Séries"),
-                subtitle: const Text("Veja tudo sobre séries!"),
+                subtitle: const Text("Veja tudo sobre séries."),
                 trailing: const Icon(Icons.arrow_forward),
                  onTap: () {
                    
@@ -78,7 +91,7 @@ class _HomePageState extends State<HomePage> {
                ListTile( 
                  leading: const Icon(Icons.movie),
                  title: const Text("Filmes"),
-                  subtitle: const Text("Veja tudo sobre filmes!"),
+                  subtitle: const Text("Veja tudo sobre filmes."),
                  trailing: const Icon(Icons.arrow_forward),
                 onTap: () {
                 }
