@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/app/app_routes.dart';
 import 'package:flutter_movie_app/pages/description_page.dart';
 
-class TrendingMovies extends StatelessWidget {
-  final List trending;
+class TopRatedList extends StatelessWidget {
+  final List topRated;
   
-  const TrendingMovies({super.key, required this.trending});
+  const TopRatedList({super.key, required this.topRated});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class TrendingMovies extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
         children: [
             const Text(
-              'Filmes em alta', 
+              'Filmes mais votados', 
               style: TextStyle(
                 fontSize: 18,
                 fontWeight: FontWeight.bold
@@ -29,7 +29,7 @@ class TrendingMovies extends StatelessWidget {
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
                 separatorBuilder: (context, index) {
-                  return const SizedBox(width: 12);
+                  return const SizedBox(width: 5);
                 },
                 itemBuilder: (context, index) { 
                   return InkWell(
@@ -38,12 +38,12 @@ class TrendingMovies extends StatelessWidget {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => DescriptionPage(
-                                      name: trending[index]['title'],
-                                      bannerUrl: 'https://image.tmdb.org/t/p/w500' +trending[index]['backdrop_path'],
-                                      description: trending[index]['overview'],
-                                      vote: trending[index]['vote_average']
+                                      name: topRated[index]['title'],
+                                      bannerUrl: 'https://image.tmdb.org/t/p/w500' +topRated[index]['backdrop_path'],
+                                      description: topRated[index]['overview'],
+                                      vote: topRated[index]['vote_average']
                                           .toString(),
-                                      launchOn: trending[index]
+                                      launchOn: topRated[index]
                                           ['release_date'],
                                     )));
                     },
@@ -54,18 +54,18 @@ class TrendingMovies extends StatelessWidget {
                           decoration: BoxDecoration(
                             image: DecorationImage(
                                image: NetworkImage(
-                                          'https://image.tmdb.org/t/p/w500' + trending[index]['poster_path']),
+                                          'https://image.tmdb.org/t/p/w500' + topRated[index]['poster_path']),
                             ),
                           ),
                           height: 200,
                         ),
                       const SizedBox(height: 5),
-                      Text(trending[index]['title'] ?? 'Loading')
+                      Text(topRated[index]['title'] ?? 'Loading')
                       ],
                     ),
                   );
                 },
-                itemCount: trending.length
+                itemCount: topRated.length
                 ),
             ),
             

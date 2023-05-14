@@ -35,14 +35,14 @@ class DescriptionPage extends StatelessWidget {
                     ),  
                   ]),
             ),
-               SizedBox(height: 15),
+           const SizedBox(height: 15),
           Container(
-              padding: EdgeInsets.all(10),
+              padding: const EdgeInsets.all(10),
               child: Text(name, style: const TextStyle(fontSize: 24))),
           Container(
-              padding: EdgeInsets.only(left: 10),
+              padding: const EdgeInsets.only(left: 10),
               child:
-                 Text('Data de estreia: ' + launchOn, style: const TextStyle(fontSize: 24))),
+                 Text('Data de estreia: $launchOn', style: const TextStyle(fontSize: 24))),
               const SizedBox(height: 5),
               Flexible(
                 child: Container(

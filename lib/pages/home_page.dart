@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_movie_app/components/toprated_list.dart';
 import 'package:flutter_movie_app/components/trending_list.dart';
+import 'package:flutter_movie_app/components/tv_list.dart';
 import 'package:tmdb_api/tmdb_api.dart';
 
 class HomePage extends StatefulWidget {
@@ -16,7 +18,7 @@ class _HomePageState extends State<HomePage> {
 
   List trendingMovies = [];
   List topRatedMovies = [];
-  List upComingMovies = [];
+  List popularTvShows = [];
   
  @override
   void initState(){
@@ -34,13 +36,13 @@ class _HomePageState extends State<HomePage> {
     );
 
     Map trendingresult = await tmdbWithCostumLogs.v3.trending.getTrending();
-    // Map topRatedMovies = await tmdbWithCostumLogs.v3.movies.getTopRated();
-    // Map upComingMovies = await tmdbWithCostumLogs.v3.movies.getUpcoming();
+    Map topratedresult = await tmdbWithCostumLogs.v3.movies.getTopRated();
+    Map tv = await tmdbWithCostumLogs.v3.tv.getPopular();
 
     setState(() {
       trendingMovies = trendingresult['results'];
-      // topRatedMovies = topRatedMovies['results'];
-      // upComingMovies = upComingMovies['results'];
+      topRatedMovies = topratedresult['results'];
+      popularTvShows = tv['results'];
     });
 
   }
@@ -55,6 +57,8 @@ class _HomePageState extends State<HomePage> {
       ),
       body: ListView(
         children: [
+          TvShowList(tv: popularTvShows),
+          TopRatedList(topRated: topRatedMovies),
           TrendingMovies(trending: trendingMovies)
         ],
       ),
