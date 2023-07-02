@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
 
-class DescriptionPage extends StatelessWidget {
-  // List actors = [];
+class ActorsDescriptionPage extends StatelessWidget {
+  
+  final String originalName, profilePath, knownFor; 
+  final double popularity;
 
-  final String name, description, bannerUrl, vote, launchOn;
-
-  const DescriptionPage(
-      {super.key,
-      required this.name,
-      required this.description,
-      required this.bannerUrl,
-      required this.vote,
-      required this.launchOn,
-    });
+  const ActorsDescriptionPage({super.key, required this.knownFor, required this.originalName, required this.popularity, required this.profilePath});
 
   @override
   Widget build(BuildContext context) {
+    final avaibleHeight = (MediaQuery.of(context).size.width - 30) / 2;
+
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -37,13 +32,18 @@ class DescriptionPage extends StatelessWidget {
                   child: SizedBox(
                           height: 250,
                           width: MediaQuery.of(context).size.width,
-                          child: Image.network(bannerUrl, fit: BoxFit.cover,),
+                          child: Image.network(
+                              profilePath,
+                              fit: BoxFit.cover,
+                              errorBuilder: (context, error, stackTrace) => 
+                                Image.network(
+                                'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png',
+                                fit: BoxFit.fitHeight,
+                                height: avaibleHeight,
+                              ),                               
+                            ),
                         ),
                       ),
-                  // Positioned(
-                  //    bottom: 10,
-                  //    child: Text('Nota : $vote'),
-                  //   ),  
                   ]),
             ),
            const SizedBox(height: 15),
@@ -61,13 +61,13 @@ class DescriptionPage extends StatelessWidget {
                       color: const Color(0xffFF1F8A)
                     )
                   ),
-                  child: Center(child: Text('$vote%')),
+                  child: Center(child: Text('$popularity%')),
               ),
           Flexible(
             child: Container(
                 padding: const EdgeInsets.all(10),
                 child: Text(
-                  '$name | $launchOn ',
+                  originalName,
                   style: const TextStyle(
                     fontSize: 24,
                     fontFamily: 'Inter',
@@ -83,7 +83,7 @@ class DescriptionPage extends StatelessWidget {
               Flexible(
                 child: Container(
                     padding: const EdgeInsets.all(10),
-                    child: Text(description, style: const TextStyle(fontSize: 20, fontFamily: 'Inter',))),
+                    child: Text('Profissão: ${knownFor.toString()}', style: const TextStyle(fontSize: 20, fontFamily: 'Inter',))),
               ),
               const SizedBox(height: 10),
             ],

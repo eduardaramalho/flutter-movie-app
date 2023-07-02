@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_movie_app/components/toprated_list.dart';
-import 'package:flutter_movie_app/components/trending_list.dart';
-import 'package:flutter_movie_app/components/tv_list.dart';
+import 'package:flutter_movie_app/pages/movie_page.dart';
+import 'package:flutter_movie_app/pages/pages.dart';
 import 'package:tmdb_api/tmdb_api.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -19,6 +17,7 @@ class _HomePageState extends State<HomePage> {
   List trendingMovies = [];
   List topRatedMovies = [];
   List popularTvShows = [];
+  List actors = [];
   
  @override
   void initState(){
@@ -29,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   loadMovies () async {
     TMDB tmdbWithCostumLogs = TMDB(
       (ApiKeys(apiKey, readAccesToken)),
+      defaultLanguage:'PT-BR',
       logConfig: const ConfigLogger(
         showLogs: true,
         showErrorLogs: true
@@ -38,6 +38,7 @@ class _HomePageState extends State<HomePage> {
     Map trendingresult = await tmdbWithCostumLogs.v3.trending.getTrending();
     Map topratedresult = await tmdbWithCostumLogs.v3.movies.getTopRated();
     Map tv = await tmdbWithCostumLogs.v3.tv.getPopular();
+    // Map actors = await tmdbWithCostumLogs.v3.
 
     setState(() {
       trendingMovies = trendingresult['results'];
@@ -45,6 +46,20 @@ class _HomePageState extends State<HomePage> {
       popularTvShows = tv['results'];
     });
 
+  }
+
+  int _currentIndex = 0;
+
+  final List<Widget> _screens = [
+    const MoviePage(),
+    const TvShowPage(),
+    const ActorsPage()
+  ];
+
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 
   @override
@@ -55,49 +70,24 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Movie App', style: TextStyle(fontFamily: 'Inter'),),
         backgroundColor: const Color(0xff303243),
       ),
-      body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
-        alignment: Alignment.center,
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Color(0xff303243),
-              Color(0xff36076B),
-              Color(0xff8000FF),
-            ])
-        ),
-        child: ListView(
-          children: [
-            TvShowList(tv: popularTvShows),
-            TopRatedList(topRated: topRatedMovies),
-            TrendingMovies(trending: trendingMovies)
-          ],
-        ),
-      ),
-      drawer: Drawer(
-        child: ListView(
-          children: [
-               const Divider(),
-              ListTile(
-                leading: const Icon(Icons.tv),
-                title: const Text("Séries"),
-                subtitle: const Text("Veja tudo sobre séries."),
-                trailing: const Icon(Icons.arrow_forward),
-                 onTap: () {
-                   
-                    },
-               ),
-               ListTile( 
-                 leading: const Icon(Icons.movie),
-                 title: const Text("Filmes"),
-                  subtitle: const Text("Veja tudo sobre filmes."),
-                 trailing: const Icon(Icons.arrow_forward),
-                onTap: () {
-                }
-               )
-          ],
-        ),
+      body: _screens[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+				currentIndex: _currentIndex,
+        onTap: onTabTapped,
+        items: const [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.tv),
+              label: "Filmes"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.movie),
+              label: "Séries"
+          ),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: "Atores"
+          ),
+        ],
       ),
     );
   }

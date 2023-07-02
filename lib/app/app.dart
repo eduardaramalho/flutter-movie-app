@@ -1,3 +1,5 @@
+import 'package:flutter_movie_app/pages/movie_page.dart';
+
 import '../pages/pages.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_movie_app/app/app_routes.dart';
@@ -12,7 +14,9 @@ class App extends StatelessWidget {
         brightness: Brightness.dark, primaryColor: Colors.pink
       ),
       routes: {
-         AppRoutes.home :(context) => const HomePage()
+         AppRoutes.home :(context) => const HomePage(),
+         AppRoutes.tvShow :(context) => const TvShowPage(),
+         AppRoutes.movies :(context) => const MoviePage(),
       },
     );
   }
